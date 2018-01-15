@@ -7,10 +7,9 @@ To create terraform resources, please first install terraform and terragrunt (fr
 
 go to the terraform/\<resource\> folder and then type:
 	
-	```
 	terragrunt init   # to initalise the backend
 	terragrunt get --update # to handle any module changes in this version
 	terragrunt plan # to see what terraform will create/destroy/update
 	terragrunt apply # to apply the changes
-	```
+	
 	
