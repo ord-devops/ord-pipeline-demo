@@ -57,6 +57,37 @@ resource "aws_security_group" "jenkins" {
   }
 }
 
+
+resource "aws_security_group" "kub8" {
+  name        = "kub8"
+  description = "allow internal kubernetes traffic"
+  vpc_id      = "${module.vpc.vpc_id}"
+
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "6"
+    security_groups = ["${aws_security_group.jumphost.id}"]
+  }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    security_groups = ["${aws_security_group.jenkins.id}"]
+    self = true
+  }
+
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_security_group" "alb" {
   name        = "load ballancer"
   description = "load ballancer allow http and https traffic"
@@ -86,4 +117,61 @@ resource "aws_security_group" "alb" {
 
 output "vpc_id" {
   value = "${module.vpc.vpc_id}"
+}
+
+
+output "vpc_cidr" {
+  value = "${module.vpc.vpc_cidr}"
+}
+
+output "nat_ip" {
+  value = "${module.vpc.nat_ip}"
+}
+
+output "public_1a_id" {
+  value = "${module.vpc.public_1a_id}"
+}
+
+output "public_1b_id" {
+  value = "${module.vpc.public_1b_id}"
+}
+
+output "public_1c_id" {
+  value = "${module.vpc.public_1c_id}"
+}
+
+output "public_1a_cidr" {
+  value = "${module.vpc.public_1a_cidr}"
+}
+
+output "public_1b_cidr" {
+  value = "${module.vpc.public_1b_cidr}"
+}
+
+output "public_1c_cidr" {
+  value = "${module.vpc.public_1c_cidr}"
+}
+
+output "private_1a_id" {
+  value = "${module.vpc.private_1a_id}"
+}
+
+output "private_1b_id" {
+  value = "${module.vpc.private_1b_id}"
+}
+
+output "private_1c_id" {
+  value = "${module.vpc.private_1c_id}"
+}
+
+output "private_1a_cidr" {
+  value = "${module.vpc.private_1a_cidr}"
+}
+
+output "private_1b_cidr" {
+  value = "${module.vpc.private_1b_cidr}"
+}
+
+output "private_1c_cidr" {
+  value = "${module.vpc.private_1c_cidr}"
 }
