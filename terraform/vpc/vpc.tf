@@ -1,7 +1,7 @@
 module "vpc" {
   source = "../modules/vpc"
 
-  vpc_name   = "kub8_vpc"
+  vpc_name   = "k8s_vpc"
   vpc_env    = "demo"
   cidr_block = "10.127.0.0/21"
 }
@@ -58,7 +58,7 @@ resource "aws_security_group" "jenkins" {
 }
 
 
-resource "aws_security_group" "kub8" {
+resource "aws_security_group" "k8s" {
   name        = "kub8"
   description = "allow internal kubernetes traffic"
   vpc_id      = "${module.vpc.vpc_id}"
