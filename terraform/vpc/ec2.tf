@@ -29,6 +29,10 @@ resource "aws_instance" "jumphost" {
   iam_instance_profile = "${aws_iam_instance_profile.jumphost_profile.name}"
   user_data            = "${data.template_file.user_data.rendered}"
 
+  root_block_device {
+    delete_on_termination = true
+  }
+
   tags {
     Name = "jumphost"
     environment = "demo"
@@ -47,6 +51,10 @@ resource "aws_instance" "jenkins" {
   iam_instance_profile = "${aws_iam_instance_profile.jenkins_profile.name}"
   user_data            = "${data.template_file.user_data.rendered}"
 
+  root_block_device {
+    delete_on_termination = true
+  }
+
   tags {
     Name = "jenkins"
     environment = "demo"
@@ -64,6 +72,10 @@ resource "aws_instance" "k8master" {
   key_name = "${aws_key_pair.centos.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.k8master_profile.name}"
   user_data            = "${data.template_file.user_data.rendered}"
+  
+  root_block_device {
+    delete_on_termination = true
+  }
 
   tags {
     Name = "k8master"
@@ -82,6 +94,10 @@ resource "aws_launch_configuration" "launch" {
   user_data            = "${data.template_file.user_data.rendered}"
   key_name             = "${aws_key_pair.centos.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.k8node_profile.name}"
+
+  root_block_device {
+    delete_on_termination = true
+  }
 
   # aws_launch_configuration can not be modified.
   # Therefore we use create_before_destroy so that a new modified aws_launch_configuration can be created 
