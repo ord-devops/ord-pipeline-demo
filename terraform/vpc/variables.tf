@@ -11,3 +11,7 @@ variable "ansible_version" {
 variable "ansible_pull_repo" {
   description = "repository to pull ansible playbook from"
 }
+
+variable "ec2_key_pub" {
+  description = "ec2 instance public key for admin login"
+}
