@@ -12,6 +12,11 @@ variable "ansible_pull_repo" {
   description = "repository to pull ansible playbook from"
 }
 
-variable "ec2_key_pub" {
-  description = "ec2 instance public key for admin login"
+
+variable "pubkey_path" {
+  description = "path to public key"
+}
+
+variable "privkey_path" {
+  description = "path to private key"
 }

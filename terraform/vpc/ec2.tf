@@ -15,7 +15,7 @@ data "aws_ami" "centos" {
 
 resource "aws_key_pair" "centos" {
   key_name   = "centos-key"
-  public_key = "${var.ec2_key_pub}"
+  public_key = "${file(var.pubkey_path)}"
 }
 
 # Jumphost server autoscaling group

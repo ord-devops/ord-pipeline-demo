@@ -33,6 +33,12 @@ resource "aws_iam_role_policy_attachment" "jumphost_policy_ec2_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "jumphost_policy_s3_readonly" {
+  role       = "${aws_iam_role.jumphost_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
+
+
 
 # Jenkins IAM instance role definition
 
@@ -55,6 +61,11 @@ resource "aws_iam_role_policy_attachment" "jenkins_policy_codecommit_readonly" {
 resource "aws_iam_role_policy_attachment" "jenkins_policy_ec2_readonly" {
   role       = "${aws_iam_role.jenkins_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "jenkins_policy_s3_readonly" {
+  role       = "${aws_iam_role.jenkins_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
 
@@ -80,6 +91,11 @@ resource "aws_iam_role_policy_attachment" "k8smaster_policy_ec2_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "k8smaster_policy_s3_readonly" {
+  role       = "${aws_iam_role.k8smaster_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
+
 
 # Kubernetes node IAM instance role definition
 resource "aws_iam_instance_profile" "k8snode_profile" {
@@ -101,4 +117,9 @@ resource "aws_iam_role_policy_attachment" "k8node_policy_codecommit_readonly" {
 resource "aws_iam_role_policy_attachment" "k8node_policy_ec2_readonly" {
   role       = "${aws_iam_role.k8snode_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "k8snode_policy_s3_readonly" {
+  role       = "${aws_iam_role.k8snode_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
