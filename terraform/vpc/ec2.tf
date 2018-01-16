@@ -1,3 +1,4 @@
+
 data "aws_ami" "centos" {
   most_recent = true
 
@@ -25,6 +26,8 @@ resource "aws_instance" "jumphost" {
   vpc_security_group_ids = ["${aws_security_group.jumphost.id}"]
   associate_public_ip_address = true
   key_name = "${aws_key_pair.centos.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.jumphost_profile.name}"
+  user_data            = "${data.template_file.user_data.rendered}"
 
   tags {
     Name = "jumphost"
@@ -41,6 +44,8 @@ resource "aws_instance" "jenkins" {
   subnet_id = "${module.vpc.private_1a_id}"
   vpc_security_group_ids = ["${aws_security_group.jenkins.id}"]
   key_name = "${aws_key_pair.centos.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.jenkins_profile.name}"
+  user_data            = "${data.template_file.user_data.rendered}"
 
   tags {
     Name = "jenkins"
@@ -57,6 +62,8 @@ resource "aws_instance" "k8master" {
   subnet_id = "${module.vpc.private_1b_id}"
   vpc_security_group_ids = ["${aws_security_group.kub8.id}"]
   key_name = "${aws_key_pair.centos.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.k8master_profile.name}"
+  user_data            = "${data.template_file.user_data.rendered}"
 
   tags {
     Name = "k8master"
@@ -74,6 +81,7 @@ resource "aws_launch_configuration" "launch" {
   security_groups      = ["${aws_security_group.kub8.id}"]
   user_data            = "${data.template_file.user_data.rendered}"
   key_name             = "${aws_key_pair.centos.key_name}"
+  iam_instance_profile = "${aws_iam_instance_profile.k8node_profile.name}"
 
   # aws_launch_configuration can not be modified.
   # Therefore we use create_before_destroy so that a new modified aws_launch_configuration can be created 
@@ -114,11 +122,20 @@ resource "aws_autoscaling_group" "asg" {
 
 data "template_file" "user_data" {
   template = "${file("${path.module}/templates/user_data.sh")}"
+  vars {
+    custom_userdata = "${var.custom_userdata}"
+    ansible_version = "${var.ansible_version}"
+    ansible_pull_repo = "${var.ansible_pull_repo}"
+      }
 }
 
 
 output "jumphost_pub_ip" {
   value = "${aws_instance.jumphost.public_ip}"
+}
+
+output "jumphost_dns_name" {
+  value = "${aws_instance.jumphost.public_dns}"
 }
 
 output "jenkins_ip" {
