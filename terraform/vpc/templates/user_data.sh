@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Ansible configuration
+yum update -y
 yum install git -y
 yum install gcc libffi-devel python-devel openssl-devel -y
 easy_install pip
