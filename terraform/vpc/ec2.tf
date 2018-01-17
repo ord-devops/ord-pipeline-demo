@@ -30,6 +30,7 @@ resource "aws_launch_configuration" "jumphost" {
   user_data            = "${data.template_file.user_data.rendered}"
   
   root_block_device {
+    volume_type = "gp2"
     delete_on_termination = true
   }
   # aws_launch_configuration can not be modified.
@@ -83,6 +84,7 @@ resource "aws_launch_configuration" "jenkins" {
   user_data            = "${data.template_file.user_data.rendered}"
   
   root_block_device {
+    volume_type = "gp2"
     delete_on_termination = true
   }
   # aws_launch_configuration can not be modified.
@@ -129,13 +131,15 @@ resource "aws_autoscaling_group" "jenkins" {
 resource "aws_launch_configuration" "k8smaster" {
   name_prefix = "k8smaster_"
   image_id           = "${data.aws_ami.centos.id}"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   security_groups = ["${aws_security_group.k8s.id}"]
   key_name = "${aws_key_pair.centos.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.k8smaster_profile.name}"
   user_data            = "${data.template_file.user_data.rendered}"
   
   root_block_device {
+    volume_type = "gp2"
+    volume_size = 20
     delete_on_termination = true
   }
   # aws_launch_configuration can not be modified.
@@ -182,13 +186,14 @@ resource "aws_autoscaling_group" "k8smaster" {
 resource "aws_launch_configuration" "k8snode" {
   name_prefix          = "k8snode_"
   image_id             = "${data.aws_ami.centos.id}"
-  instance_type        = "t2.micro"
+  instance_type        = "t2.medium"
   security_groups      = ["${aws_security_group.k8s.id}"]
   user_data            = "${data.template_file.user_data.rendered}"
   key_name             = "${aws_key_pair.centos.key_name}"
   iam_instance_profile = "${aws_iam_instance_profile.k8snode_profile.name}"
 
   root_block_device {
+    volume_type = "gp2"
     delete_on_termination = true
   }
 
