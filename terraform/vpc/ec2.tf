@@ -59,7 +59,7 @@ resource "aws_autoscaling_group" "jumphost" {
 
   tag {
     key                 = "environment"
-    value               = "demo"
+    value               = "${var.environment}"
     propagate_at_launch = "true"
   }
 
@@ -112,7 +112,7 @@ resource "aws_autoscaling_group" "jenkins" {
 
   tag {
     key                 = "environment"
-    value               = "demo"
+    value               = "${var.environment}"
     propagate_at_launch = "true"
   }
 
@@ -164,7 +164,7 @@ resource "aws_autoscaling_group" "k8smaster" {
 
   tag {
     key                 = "environment"
-    value               = "demo"
+    value               = "${var.environment}"
     propagate_at_launch = "true"
   }
 
@@ -217,7 +217,7 @@ resource "aws_autoscaling_group" "k8snodes" {
 
   tag {
     key                 = "environment"
-    value               = "demo"
+    value               = "${var.environment}"
     propagate_at_launch = "true"
   }
 

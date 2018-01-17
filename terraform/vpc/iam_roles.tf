@@ -109,12 +109,12 @@ resource "aws_iam_role" "k8snode_role" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "k8node_policy_codecommit_readonly" {
+resource "aws_iam_role_policy_attachment" "k8snode_policy_codecommit_readonly" {
   role       = "${aws_iam_role.k8snode_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitReadOnly"
 }
 
-resource "aws_iam_role_policy_attachment" "k8node_policy_ec2_readonly" {
+resource "aws_iam_role_policy_attachment" "k8snode_policy_ec2_readonly" {
   role       = "${aws_iam_role.k8snode_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }

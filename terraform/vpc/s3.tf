@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "keystore" {
-  bucket = "ord-demo-keystore"
+  bucket = "${var.keystore_bucket}"
   acl    = "private"
 
   server_side_encryption_configuration {
@@ -10,21 +10,21 @@ resource "aws_s3_bucket" "keystore" {
     }
   }
   tags {
-    Name        = "ord-demo-keystore"
-    Environment = "demo"
+    Name        = "${var.keystore_bucket}"
+    Environment = "${var.environment}"
   }
 }
 
 resource "aws_s3_bucket_object" "pubkey" {
   bucket = "${aws_s3_bucket.keystore.id}"
-  key    = "centos_rsa.pub"
+  key    = "${var.pubkey}"
   source = "${var.pubkey_path}"
   etag   = "${md5(file(var.pubkey_path))}"
 }
 
 resource "aws_s3_bucket_object" "privkey" {
   bucket = "${aws_s3_bucket.keystore.id}"
-  key    = "centos_rsa"
+  key    = "${var.privkey}"
   source = "${var.privkey_path}"
   etag   = "${md5(file(var.privkey_path))}"
 }

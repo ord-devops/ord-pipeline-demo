@@ -2,8 +2,8 @@ module "vpc" {
   source = "../modules/vpc"
 
   vpc_name   = "k8s_vpc"
-  vpc_env    = "demo"
-  cidr_block = "10.127.0.0/21"
+  vpc_env    = "${var.environment}"
+  cidr_block = "${var.vpc_cidr}"
 }
 
 
@@ -89,8 +89,8 @@ resource "aws_security_group" "k8s" {
 }
 
 resource "aws_security_group" "alb" {
-  name        = "load ballancer"
-  description = "load ballancer allow http and https traffic"
+  name        = "load balancer"
+  description = "load balancer allow http and https traffic"
   vpc_id      = "${module.vpc.vpc_id}"
 
   ingress {
