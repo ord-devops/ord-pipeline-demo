@@ -33,5 +33,5 @@ resource "aws_s3_bucket_object" "jenkins_github_token" {
   bucket = "${aws_s3_bucket.keystore.id}"
   key    = "jenkins_github_token"
   content = "${var.jenkins_github_token}"
-  etag   = "${md5(${var.jenkins_github_token})}"
+  etag   = "${md5(var.jenkins_github_token)}"
 }
