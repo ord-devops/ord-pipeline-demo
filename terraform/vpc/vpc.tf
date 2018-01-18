@@ -81,6 +81,16 @@ resource "aws_security_group_rule" "jenkins_http" {
   description = "allow http traffic on 8080 from alb"
 }
 
+resource "aws_security_group_rule" "jenkins_http_k8s" {
+  type = "ingress"
+  from_port   = 8080
+  to_port     = 8080
+  protocol    = "tcp"
+  security_group_id = "${aws_security_group.jenkins.id}"
+  source_security_group_id = "${aws_security_group.k8s.id}"
+  description = "allow http traffic on 8080 from kubernetes"
+}
+
 resource "aws_security_group_rule" "jenkins_slave_agent_port" {
   type = "ingress"
   from_port  = 50000
