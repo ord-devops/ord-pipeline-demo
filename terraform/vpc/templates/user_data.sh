@@ -25,8 +25,10 @@ git config --global credential.UseHttpPath true
 
 
 # Run ansible-pull
-mkdir -p /opt/ansible
-ansible-pull  --url=${ansible_pull_repo} --directory=/opt/ansible local.yml 2>&1 | tee -a /var/log/ansible-pull.log
+cd /opt
+git clone ${ansible_pull_repo} ansible
+cd /opt/ansible
+ansible-playbook local.yml 2>&1 | tee -a /var/log/ansible-pull.log
 
 # Custom userdata
 ${custom_userdata}
