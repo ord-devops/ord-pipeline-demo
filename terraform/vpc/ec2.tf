@@ -70,7 +70,7 @@ resource "aws_autoscaling_group" "jumphost" {
     propagate_at_launch = "true"
   }
 
-  depends_on = ["aws_autoscaling_group.jenkins", "aws_autoscaling_group.k8smaster", "aws_autoscaling_group.k8snodes"]
+  depends_on = ["module.vpc"]
 
 }
 
@@ -127,7 +127,7 @@ resource "aws_autoscaling_group" "jenkins" {
     propagate_at_launch = "true"
   }
 
-  depends_on = ["module.vpc"]
+  depends_on = ["aws_autoscaling_group.k8smaster", "aws_autoscaling_group.k8snodes"]
 
 }
 
