@@ -41,3 +41,8 @@ variable "environment" {
   description = "environment to tag"
   default = "demo"
 }
+
+variable "jenkins_github_token" {
+  type = "string"
+  description = "token for jenkins access to github"
+}

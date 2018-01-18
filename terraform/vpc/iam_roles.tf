@@ -33,10 +33,7 @@ resource "aws_iam_role_policy_attachment" "jumphost_policy_ec2_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
 }
 
-resource "aws_iam_role_policy_attachment" "jumphost_policy_s3_readonly" {
-  role       = "${aws_iam_role.jumphost_role.name}"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
-}
+
 
 
 

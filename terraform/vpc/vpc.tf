@@ -40,6 +40,7 @@ resource "aws_security_group" "jenkins" {
     to_port     = 22
     protocol    = "6"
     security_groups = ["${aws_security_group.jumphost.id}"]
+    self = true
   }
 
   ingress {
@@ -68,7 +69,7 @@ resource "aws_security_group" "k8s" {
     from_port   = 22
     to_port     = 22
     protocol    = "6"
-    security_groups = ["${aws_security_group.jumphost.id}"]
+    security_groups = ["${aws_security_group.jumphost.id}","${aws_security_group.jenkins.id}"]
   }
 
   ingress {
