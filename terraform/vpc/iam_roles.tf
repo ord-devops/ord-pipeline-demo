@@ -65,6 +65,13 @@ resource "aws_iam_role_policy_attachment" "jenkins_policy_s3_readonly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "jenkins_policy_ecr_poweruser" {
+  role       = "${aws_iam_role.jenkins_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
+}
+
+
+
 
 # Kubernetes master node IAM instance role definition
 resource "aws_iam_instance_profile" "k8smaster_profile" {
@@ -91,6 +98,11 @@ resource "aws_iam_role_policy_attachment" "k8smaster_policy_ec2_readonly" {
 resource "aws_iam_role_policy_attachment" "k8smaster_policy_s3_readonly" {
   role       = "${aws_iam_role.k8smaster_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "k8smaster_policy_ecr_readonly" {
+  role       = "${aws_iam_role.k8smaster_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
 
@@ -120,3 +132,11 @@ resource "aws_iam_role_policy_attachment" "k8snode_policy_s3_readonly" {
   role       = "${aws_iam_role.k8snode_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
 }
+
+resource "aws_iam_role_policy_attachment" "k8snode_policy_ecr_readonly" {
+  role       = "${aws_iam_role.k8snode_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+
+
