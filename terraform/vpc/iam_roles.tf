@@ -90,9 +90,9 @@ resource "aws_iam_role_policy_attachment" "k8smaster_policy_codecommit_readonly"
   policy_arn = "arn:aws:iam::aws:policy/AWSCodeCommitReadOnly"
 }
 
-resource "aws_iam_role_policy_attachment" "k8smaster_policy_ec2_readonly" {
+resource "aws_iam_role_policy_attachment" "k8smaster_policy_ec2_fullaccess" {
   role       = "${aws_iam_role.k8smaster_role.name}"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "k8smaster_policy_s3_readonly" {
