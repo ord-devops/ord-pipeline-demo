@@ -46,3 +46,8 @@ variable "jenkins_github_token" {
   type = "string"
   description = "token for jenkins access to github"
 }
+
+variable "k8s_cluster" {
+  description = "Kubernetes cluster name for AWS tagging"
+  default = "democluster"
+}

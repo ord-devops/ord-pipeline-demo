@@ -183,6 +183,12 @@ resource "aws_autoscaling_group" "k8smaster" {
     propagate_at_launch = "true"
   }
 
+  tag {
+    key = "KubernetesCluster"
+    value = "${var.k8s_cluster}"
+    propagate_at_launch = "true"
+  }
+
   depends_on = ["module.vpc"]
 
 }
@@ -236,6 +242,12 @@ resource "aws_autoscaling_group" "k8snodes" {
   tag {
     key                 = "role"
     value               = "k8snode"
+    propagate_at_launch = "true"
+  }
+
+  tag {
+    key = "KubernetesCluster"
+    value = "${var.k8s_cluster}"
     propagate_at_launch = "true"
   }
 

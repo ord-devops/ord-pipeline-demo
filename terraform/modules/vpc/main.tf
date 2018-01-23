@@ -8,6 +8,7 @@ resource "aws_vpc" "current_vpc" {
     Name        = "${var.vpc_name}"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -25,6 +26,7 @@ resource "aws_subnet" "private-1a" {
     Name        = "${var.vpc_name} private-1a"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -39,6 +41,7 @@ resource "aws_subnet" "private-1b" {
     Name        = "${var.vpc_name} private-1b"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -53,6 +56,7 @@ resource "aws_subnet" "private-1c" {
     Name        = "${var.vpc_name} private-1c"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -67,6 +71,7 @@ resource "aws_subnet" "public-1a" {
     Name        = "${var.vpc_name} public-1a"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -81,6 +86,7 @@ resource "aws_subnet" "public-1b" {
     Name        = "${var.vpc_name} public-1b"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -95,6 +101,7 @@ resource "aws_subnet" "public-1c" {
     Name        = "${var.vpc_name} public-1c"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -105,6 +112,7 @@ resource "aws_internet_gateway" "internet_gateway" {
     Name        = "${var.vpc_name} internet gateway"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -125,6 +133,7 @@ resource "aws_nat_gateway" "nat_gateway" {
     Name        = "${var.vpc_name} NAT gateway"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -133,6 +142,7 @@ resource "aws_default_route_table" "route_default" {
 
   tags {
     Name = "${var.vpc_name} routetable default unused"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -153,6 +163,7 @@ resource "aws_route_table" "route_public" {
     Name        = "${var.vpc_name} routetable public"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
@@ -173,6 +184,7 @@ resource "aws_route_table" "route_private" {
     Name        = "${var.vpc_name} routetable private"
     environment = "${var.vpc_env}"
     role        = "networking"
+    KubernetesCluster = "${var.k8s_cluster}"
   }
 }
 
